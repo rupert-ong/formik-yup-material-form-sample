@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Formik } from "formik";
+import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Form from "./components/Form";
-import { Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
+import { Formik } from "formik";
 import * as yup from "yup";
+
+import Form from "./components/Form";
 
 import styles from "./styles";
 
@@ -62,5 +62,9 @@ class InputForm extends Component {
     );
   }
 }
+
+InputForm.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(InputForm);
