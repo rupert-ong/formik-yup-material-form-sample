@@ -25,37 +25,14 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref("password")], "Password does not match")
 });
 
+const initialValues = {
+  name: "",
+  email: "",
+  confirmPassword: "",
+  password: ""
+};
+
 class InputForm extends Component {
-  state = {
-    formValues: {
-      name: "",
-      email: "",
-      confirmPassword: "",
-      password: ""
-    },
-    touchedFields: {}
-  };
-
-  handleChangeFormValuesClick = () => {
-    this.setState({
-      formValues: {
-        ...this.state.formValues,
-        name: "Bozo the Clown"
-      }
-    });
-  };
-
-  handleFormValuesChange = e => {
-    // TODO: If e.target.name contains periods (like social.twitter, separate and store it as an object social: ...social, { twitter: value })
-    this.setState(prevState => ({
-      formValues: {
-        ...prevState.formValues,
-        [e.target.name]: e.target.value
-      },
-      touchedFields: { ...prevState.touchedFields, [e.target.name]: true }
-    }));
-  };
-
   render() {
     const { classes } = this.props;
     return (
@@ -66,34 +43,19 @@ class InputForm extends Component {
               Form
             </Typography>
             <Formik
-              initialValues={this.state.formValues}
+              initialValues={initialValues}
               isInitialValid={({ validationSchema, initialValues }) =>
                 validationSchema.isValidSync(initialValues)
               }
               validationSchema={validationSchema}
-              enableReinitialize={true}
               onSubmit={(values, actions) => {
                 console.log(JSON.stringify(values, null, 2));
                 setTimeout(() => actions.setSubmitting(false), 3000);
               }}
               render={props => {
-                return (
-                  <Form
-                    handleFormValuesChange={this.handleFormValuesChange}
-                    touchedFields={this.state.touchedFields}
-                    {...props}
-                  />
-                );
+                return <Form {...props} />;
               }}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.handleChangeFormValuesClick}
-              style={{ marginTop: "16px" }}
-            >
-              Change Name (But Keep Others)
-            </Button>
           </Paper>
         </div>
       </>
