@@ -1,6 +1,10 @@
 import React from "react";
-import { RadioGroup } from "@material-ui/core";
-import { getIn } from "formik";
+import {
+  RadioGroup,
+  FormControl,
+  FormLabel,
+  FormHelperText
+} from "@material-ui/core";
 
 const FormikRadioGroup = ({
   value,
@@ -9,9 +13,6 @@ const FormikRadioGroup = ({
   name,
   label,
   children,
-  id,
-  row,
-  classes,
   onChange,
   onBlur,
   ...props
@@ -25,21 +26,25 @@ const FormikRadioGroup = ({
   };
 
   return (
-    <>
+    <FormControl component="fieldset">
+      {label && <FormLabel component="legend">{label}</FormLabel>}
       <RadioGroup
-        id={id}
         value={value}
         name={name}
         onChange={handleChange}
         onBlur={handleBlur}
-        row={row}
-        classes={classes}
         {...props}
       >
         {children}
       </RadioGroup>
-      {touched && error}
-    </>
+      <FormHelperText error={Boolean(error)}>
+        {touched && Boolean(error)
+          ? error
+          : props.helperText
+          ? props.helperText
+          : ""}
+      </FormHelperText>
+    </FormControl>
   );
 };
 
