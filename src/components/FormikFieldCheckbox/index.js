@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FormControlLabel, FormHelperText, Checkbox } from "@material-ui/core";
 
-const FormikCheckbox = ({
+const FormikFieldCheckbox = ({
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
   id,
@@ -40,7 +40,7 @@ const FormikCheckbox = ({
   );
 };
 
-FormikCheckbox.propTypes = {
+FormikFieldCheckbox.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
   id: PropTypes.string,
@@ -51,9 +51,9 @@ FormikCheckbox.propTypes = {
   displayError: PropTypes.bool
 };
 
-FormikCheckbox.defaultProps = {
+FormikFieldCheckbox.defaultProps = {
   color: "primary",
   displayError: true
 };
 
-export default FormikCheckbox;
+export default FormikFieldCheckbox;

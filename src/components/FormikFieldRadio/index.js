@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FormControlLabel, Radio } from "@material-ui/core";
 
-const FormikRadio = ({ field, form, id, label, inputValue, ...props }) => {
+const FormikFieldRadio = ({ field, form, id, label, inputValue, ...props }) => {
   return (
     <FormControlLabel
       name={field.name}
@@ -16,7 +16,7 @@ const FormikRadio = ({ field, form, id, label, inputValue, ...props }) => {
   );
 };
 
-FormikRadio.propTypes = {
+FormikFieldRadio.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
   inputValue: PropTypes.string.isRequired,
@@ -25,8 +25,8 @@ FormikRadio.propTypes = {
   color: PropTypes.oneOf(["primary", "secondary", "default"])
 };
 
-FormikRadio.defaultProps = {
+FormikFieldRadio.defaultProps = {
   color: "primary"
 };
 
-export default FormikRadio;
+export default FormikFieldRadio;

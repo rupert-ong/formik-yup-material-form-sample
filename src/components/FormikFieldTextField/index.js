@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 
 import TextField from "@material-ui/core/TextField";
 
-const FormikInputText = ({ field, form: { touched, errors }, ...props }) => {
+const FormikFieldTextField = ({
+  field,
+  form: { touched, errors },
+  ...props
+}) => {
   return (
     <TextField
       error={touched[field.name] && Boolean(errors[field.name])}
@@ -22,9 +26,9 @@ const FormikInputText = ({ field, form: { touched, errors }, ...props }) => {
   );
 };
 
-FormikInputText.propTypes = {
+FormikFieldTextField.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired
 };
 
-export default FormikInputText;
+export default FormikFieldTextField;

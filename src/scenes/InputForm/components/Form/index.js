@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
 import { Form as FormikForm, Field } from "formik";
-import FormikInputText from "../../../../components/FormikInputText";
+import FormikFieldTextField from "../../../../components/FormikFieldTextField";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
-import FormikRadio from "../../../../components/FormikRadio";
-import FormikCheckbox from "../../../../components/FormikCheckbox";
+import FormikFieldRadio from "../../../../components/FormikFieldRadio";
+import FormikFieldCheckbox from "../../../../components/FormikFieldCheckbox";
 import FormikCheckboxGroup from "../../../../components/FormikCheckboxGroup";
 
 const Form = ({
@@ -26,19 +26,19 @@ const Form = ({
             name="name"
             helperText="Enter your full name"
             label="Name"
-            component={FormikInputText}
+            component={FormikFieldTextField}
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Field name="email" label="Email" component={FormikInputText} />
+          <Field name="email" label="Email" component={FormikFieldTextField} />
         </Grid>
 
         <Grid item xs={12}>
           <Field
             name="password"
             label="Password"
-            component={FormikInputText}
+            component={FormikFieldTextField}
             type="password"
           />
         </Grid>
@@ -46,7 +46,7 @@ const Form = ({
           <Field
             name="confirmPassword"
             label="Confirm Your Password"
-            component={FormikInputText}
+            component={FormikFieldTextField}
             type="password"
           />
         </Grid>
@@ -65,21 +65,21 @@ const Form = ({
             row={true}
           >
             <Field
-              component={FormikRadio}
+              component={FormikFieldRadio}
               name="preferredFruit"
               id="radioOption1"
               label="Delicious Apples"
               inputValue="Apples"
             />
             <Field
-              component={FormikRadio}
+              component={FormikFieldRadio}
               name="preferredFruit"
               id="radioOption2"
               label="Ripe Oranges"
               inputValue="Oranges"
             />
             <Field
-              component={FormikRadio}
+              component={FormikFieldRadio}
               name="preferredFruit"
               id="radioOption3"
               label="Ripe Bananas"
@@ -103,7 +103,7 @@ const Form = ({
             row={true}
           >
             <Field
-              component={FormikCheckbox}
+              component={FormikFieldCheckbox}
               name="skills"
               id="skill1"
               label="HTML"
@@ -111,7 +111,7 @@ const Form = ({
             />
 
             <Field
-              component={FormikCheckbox}
+              component={FormikFieldCheckbox}
               name="skills"
               id="skill2"
               label="JavaScript"
@@ -119,7 +119,7 @@ const Form = ({
             />
 
             <Field
-              component={FormikCheckbox}
+              component={FormikFieldCheckbox}
               name="skills"
               id="skill3"
               label="CSS"
@@ -127,7 +127,7 @@ const Form = ({
             />
 
             <Field
-              component={FormikCheckbox}
+              component={FormikFieldCheckbox}
               name="skills"
               id="skill4"
               label="Other"
@@ -136,7 +136,7 @@ const Form = ({
           </FormikCheckboxGroup>
           {values.skills.includes("other-123") && (
             <Field
-              component={FormikInputText}
+              component={FormikFieldTextField}
               name="otherSkill"
               label="Other Skill"
               style={{ marginTop: 24 }}
@@ -146,7 +146,7 @@ const Form = ({
 
         <Grid item xs={12}>
           <Field
-            component={FormikCheckbox}
+            component={FormikFieldCheckbox}
             name="signUpForNewsletter"
             id="checkbox1"
             label="Sign up for our newsletter"
