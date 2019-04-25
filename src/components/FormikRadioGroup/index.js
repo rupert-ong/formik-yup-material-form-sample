@@ -14,6 +14,7 @@ const FormikRadioGroup = ({
   name,
   label,
   children,
+  helperText,
   onChange,
   onBlur,
   ...props
@@ -28,6 +29,9 @@ const FormikRadioGroup = ({
     onBlur(name, true);
   };
 
+  const isTouchedAndHasError = Boolean(touched) && Boolean(error);
+  console.log(isTouchedAndHasError);
+
   return (
     <FormControl component="fieldset">
       {label && <FormLabel component="legend">{label}</FormLabel>}
@@ -40,13 +44,9 @@ const FormikRadioGroup = ({
       >
         {children}
       </RadioGroup>
-      {(Boolean(error) || props.helperText) && (
-        <FormHelperText error={Boolean(error)}>
-          {touched && Boolean(error)
-            ? error
-            : props.helperText
-            ? props.helperText
-            : ""}
+      {(isTouchedAndHasError || helperText) && (
+        <FormHelperText error={isTouchedAndHasError}>
+          {isTouchedAndHasError ? error : helperText ? helperText : ""}
         </FormHelperText>
       )}
     </FormControl>
@@ -59,6 +59,7 @@ FormikRadioGroup.propTypes = {
   touched: PropTypes.bool,
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
+  helperText: PropTypes.string,
   children: PropTypes.node,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired
