@@ -30,11 +30,14 @@ const FormikRadioGroup = ({
   };
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
-  console.log(isTouchedAndHasError);
 
   return (
     <FormControl component="fieldset">
-      {label && <FormLabel component="legend">{label}</FormLabel>}
+      {label && (
+        <FormLabel component="legend" focused={false}>
+          {label}
+        </FormLabel>
+      )}
       <RadioGroup
         value={value}
         name={name}
