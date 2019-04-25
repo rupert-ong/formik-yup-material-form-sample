@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   RadioGroup,
   FormControl,
@@ -18,10 +19,12 @@ const FormikRadioGroup = ({
   ...props
 }) => {
   const handleChange = e => {
+    // setFieldValue method prop call
     onChange(name, e.target.value);
   };
 
   const handleBlur = () => {
+    // setFieldTouched method prop call
     onBlur(name, true);
   };
 
@@ -48,6 +51,17 @@ const FormikRadioGroup = ({
       )}
     </FormControl>
   );
+};
+
+FormikRadioGroup.propTypes = {
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  touched: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  children: PropTypes.node,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired
 };
 
 export default FormikRadioGroup;

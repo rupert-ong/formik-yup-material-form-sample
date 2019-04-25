@@ -7,20 +7,20 @@ import FormikInputText from "../../../../components/FormikInputText";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
 import FormikRadio from "../../../../components/FormikRadio";
 
-const Form = props => {
-  const {
-    values,
-    errors,
-    touched,
-    isValid,
-    isSubmitting,
-    setFieldValue,
-    setFieldTouched
-  } = props;
-
+const Form = ({
+  values,
+  errors,
+  touched,
+  isValid,
+  isSubmitting,
+  setFieldValue,
+  setFieldTouched,
+  theme,
+  ...props
+}) => {
   return (
     <FormikForm>
-      <Grid container spacing={props.theme.spacing.unit * 3}>
+      <Grid container spacing={theme.spacing.unit * 3}>
         <Grid item xs={12}>
           <Field
             name="name"
@@ -77,6 +77,14 @@ const Form = props => {
               label="Ripe Oranges"
               inputValue="Oranges"
             />
+            <Field
+              component={FormikRadio}
+              name="preferredFruit"
+              id="radioOption3"
+              label="Ripe Bananas"
+              inputValue="Bananas"
+              disabled
+            />
           </FormikRadioGroup>
         </Grid>
 
@@ -100,31 +108,13 @@ const Form = props => {
 };
 
 Form.propTypes = {
-  // Formik props
-  dirty: PropTypes.bool.isRequired,
-  errors: PropTypes.object.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleReset: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
-  isValidating: PropTypes.bool.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  setErrors: PropTypes.func.isRequired,
-  setFieldError: PropTypes.func.isRequired,
   setFieldTouched: PropTypes.func.isRequired,
+  setFieldValue: PropTypes.func.isRequired,
   setSubmitting: PropTypes.func.isRequired,
-  setTouched: PropTypes.func.isRequired,
-  setValues: PropTypes.func.isRequired,
-  status: PropTypes.any,
-  submitForm: PropTypes.func.isRequired,
-  submitCount: PropTypes.number.isRequired,
   touched: PropTypes.object.isRequired,
-  validateForm: PropTypes.func.isRequired,
-  validateField: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
-  // Material UI
   theme: PropTypes.object.isRequired
 };
 
