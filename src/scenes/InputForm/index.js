@@ -23,7 +23,8 @@ const validationSchema = yup.object().shape({
     .string()
     .required("Confirm your password")
     .oneOf([yup.ref("password")], "Password does not match"),
-  preferredFruit: yup.string().required("A radio option is required")
+  preferredFruit: yup.string().required("You must pick one fruit"),
+  signUpForNewsletter: yup.bool().oneOf([true], "You must sign up")
 });
 
 const initialValues = {
@@ -31,7 +32,8 @@ const initialValues = {
   email: "",
   confirmPassword: "",
   password: "",
-  preferredFruit: ""
+  preferredFruit: "",
+  signUpForNewsletter: false
 };
 
 class InputForm extends Component {

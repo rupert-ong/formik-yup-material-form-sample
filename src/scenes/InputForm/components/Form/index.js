@@ -6,6 +6,7 @@ import { Form as FormikForm, Field } from "formik";
 import FormikInputText from "../../../../components/FormikInputText";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
 import FormikRadio from "../../../../components/FormikRadio";
+import FormikCheckbox from "../../../../components/FormikCheckbox";
 
 const Form = ({
   values,
@@ -56,6 +57,7 @@ const Form = ({
             id="radioGroup"
             name="preferredFruit"
             label="Pick One of These Fruits"
+            helperText="Fruits are a healthy source of vitamins and nutrients"
             value={values.preferredFruit}
             error={errors.preferredFruit}
             touched={touched.preferredFruit}
@@ -89,6 +91,16 @@ const Form = ({
         </Grid>
 
         <Grid item xs={12}>
+          <Field
+            component={FormikCheckbox}
+            name="signUpForNewsletter"
+            id="checkbox1"
+            label="Sign up for our newsletter"
+            helperText="We won't spam you"
+          />
+        </Grid>
+
+        <Grid item xs={12}>
           <Button
             type="submit"
             fullWidth
@@ -100,9 +112,27 @@ const Form = ({
           </Button>
         </Grid>
       </Grid>
-      {<pre>{JSON.stringify(values, null, 2)}</pre>}
-      {<pre>{JSON.stringify(errors, null, 2)}</pre>}
-      {<pre>{JSON.stringify(touched, null, 2)}</pre>}
+      {
+        <pre>
+          <strong>State</strong>
+          <br />
+          {JSON.stringify(values, null, 2)}
+        </pre>
+      }
+      {
+        <pre>
+          <strong>Errors</strong>
+          <br />
+          {JSON.stringify(errors, null, 2)}
+        </pre>
+      }
+      {
+        <pre>
+          <strong>Touched</strong>
+          <br />
+          {JSON.stringify(touched, null, 2)}
+        </pre>
+      }
     </FormikForm>
   );
 };
