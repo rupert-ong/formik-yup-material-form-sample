@@ -8,7 +8,7 @@ const FormikRadio = ({ field, form, id, label, inputValue, ...props }) => {
       name={field.name}
       label={label}
       value={inputValue}
-      control={<Radio id={id} />}
+      control={<Radio id={id} color={props.color} />}
       {...props}
       checked={field.value === inputValue}
     />
