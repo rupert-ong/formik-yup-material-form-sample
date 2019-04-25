@@ -37,13 +37,15 @@ const FormikRadioGroup = ({
       >
         {children}
       </RadioGroup>
-      <FormHelperText error={Boolean(error)}>
-        {touched && Boolean(error)
-          ? error
-          : props.helperText
-          ? props.helperText
-          : ""}
-      </FormHelperText>
+      {(Boolean(error) || props.helperText) && (
+        <FormHelperText error={Boolean(error)}>
+          {touched && Boolean(error)
+            ? error
+            : props.helperText
+            ? props.helperText
+            : ""}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };
