@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Button } from "@material-ui/core";
-import { withTheme } from "@material-ui/core/styles";
 import { Form as FormikForm, Field } from "formik";
 import FormikInputText from "../../../../components/FormikInputText";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
@@ -16,12 +15,11 @@ const Form = ({
   isSubmitting,
   setFieldValue,
   setFieldTouched,
-  theme,
   ...props
 }) => {
   return (
-    <FormikForm>
-      <Grid container spacing={theme.spacing.unit * 3}>
+    <FormikForm style={{ width: "100%" }}>
+      <Grid container spacing={24}>
         <Grid item xs={12}>
           <Field
             name="name"
@@ -144,8 +142,7 @@ Form.propTypes = {
   setFieldValue: PropTypes.func.isRequired,
   setSubmitting: PropTypes.func.isRequired,
   touched: PropTypes.object.isRequired,
-  values: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  values: PropTypes.object.isRequired
 };
 
-export default withTheme()(Form);
+export default Form;
