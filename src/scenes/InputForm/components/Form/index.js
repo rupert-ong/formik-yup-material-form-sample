@@ -4,9 +4,19 @@ import { Grid, Button } from "@material-ui/core";
 import { withTheme } from "@material-ui/core/styles";
 import { Form as FormikForm, Field } from "formik";
 import FormikInputText from "../../../../components/FormikInputText";
+import FormikRadioGroup from "../../../../components/FormikRadioGroup";
+import FormikRadio from "../../../../components/FormikRadio";
 
 const Form = props => {
-  const { isValid, isSubmitting } = props;
+  const {
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+    setFieldValue,
+    setFieldTouched
+  } = props;
 
   return (
     <FormikForm>
@@ -42,18 +52,49 @@ const Form = props => {
         </Grid>
 
         <Grid item xs={12}>
+          <FormikRadioGroup
+            id="radioGroup"
+            name="preferredFruit"
+            label="Pick One of These Fruits"
+            value={values.preferredFruit}
+            error={errors.preferredFruit}
+            touched={touched.preferredFruit}
+            onChange={setFieldValue}
+            onBlur={setFieldTouched}
+            row={true}
+          >
+            <Field
+              component={FormikRadio}
+              name="preferredFruit"
+              id="radioOption1"
+              label="Delicious Apples"
+              inputValue="Apples"
+            />
+            <Field
+              component={FormikRadio}
+              name="preferredFruit"
+              id="radioOption2"
+              label="Ripe Oranges"
+              inputValue="Oranges"
+            />
+          </FormikRadioGroup>
+        </Grid>
+
+        <Grid item xs={12}>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            disabled={!isValid || isSubmitting}
+            disabled={/*!isValid || */ isSubmitting}
           >
             Submit
           </Button>
         </Grid>
       </Grid>
-      {<pre>{JSON.stringify(props.values, null, 2)}</pre>}
+      {<pre>{JSON.stringify(values, null, 2)}</pre>}
+      {<pre>{JSON.stringify(errors, null, 2)}</pre>}
+      {<pre>{JSON.stringify(touched, null, 2)}</pre>}
     </FormikForm>
   );
 };
