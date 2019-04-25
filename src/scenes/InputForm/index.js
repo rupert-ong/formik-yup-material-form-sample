@@ -24,6 +24,15 @@ const validationSchema = yup.object().shape({
     .required("Confirm your password")
     .oneOf([yup.ref("password")], "Password does not match"),
   preferredFruit: yup.string().required("You must pick one fruit"),
+  skills: yup
+    .array()
+    .of(yup.string())
+    .min(2, "You must select at least 2 skills")
+    .required(),
+  otherSkill: yup.string().when("skills", {
+    is: val => val.includes("other-123"), // alternatively: (val) => val == true
+    then: yup.string().required("You must enter your other skill")
+  }),
   signUpForNewsletter: yup.bool().oneOf([true], "You must sign up")
 });
 
@@ -33,6 +42,8 @@ const initialValues = {
   confirmPassword: "",
   password: "",
   preferredFruit: "",
+  skills: [],
+  otherSkill: "",
   signUpForNewsletter: false
 };
 

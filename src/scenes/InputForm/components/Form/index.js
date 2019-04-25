@@ -6,6 +6,7 @@ import FormikInputText from "../../../../components/FormikInputText";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
 import FormikRadio from "../../../../components/FormikRadio";
 import FormikCheckbox from "../../../../components/FormikCheckbox";
+import FormikCheckboxGroup from "../../../../components/FormikCheckboxGroup";
 
 const Form = ({
   values,
@@ -86,6 +87,61 @@ const Form = ({
               disabled
             />
           </FormikRadioGroup>
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormikCheckboxGroup
+            id="checkboxGroup"
+            name="skills"
+            label="Skills"
+            helperText="Select at least 2"
+            value={values.skills}
+            error={errors.skills}
+            touched={touched.skills}
+            onChange={setFieldValue}
+            onBlur={setFieldTouched}
+            row={true}
+          >
+            <Field
+              component={FormikCheckbox}
+              name="skills"
+              id="skill1"
+              label="HTML"
+              inputValue="html-123"
+            />
+
+            <Field
+              component={FormikCheckbox}
+              name="skills"
+              id="skill2"
+              label="JavaScript"
+              inputValue="js-123"
+            />
+
+            <Field
+              component={FormikCheckbox}
+              name="skills"
+              id="skill3"
+              label="CSS"
+              inputValue="css-123"
+            />
+
+            <Field
+              component={FormikCheckbox}
+              name="skills"
+              id="skill4"
+              label="Other"
+              inputValue="other-123"
+            />
+          </FormikCheckboxGroup>
+          {values.skills.includes("other-123") && (
+            <Field
+              component={FormikInputText}
+              name="otherSkill"
+              label="Other Skill"
+              style={{ marginTop: 24 }}
+            />
+          )}
         </Grid>
 
         <Grid item xs={12}>

@@ -9,9 +9,11 @@ const FormikCheckbox = ({
   label,
   inputValue,
   helperText,
+  displayError,
   ...props
 }) => {
-  const isTouchedAndHasError = touched[name] && errors[name];
+  const isTouchedAndHasError =
+    displayError && touched[name] && Boolean(errors[name]);
   return (
     <>
       <FormControlLabel
@@ -45,11 +47,13 @@ FormikCheckbox.propTypes = {
   label: PropTypes.string,
   inputValue: PropTypes.string,
   helperText: PropTypes.string,
-  color: PropTypes.oneOf(["primary", "secondary", "default"])
+  color: PropTypes.oneOf(["primary", "secondary", "default"]),
+  displayError: PropTypes.bool
 };
 
 FormikCheckbox.defaultProps = {
-  color: "primary"
+  color: "primary",
+  displayError: true
 };
 
 export default FormikCheckbox;
