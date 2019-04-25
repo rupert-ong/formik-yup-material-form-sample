@@ -10,6 +10,7 @@ const FormikRadio = ({ field, form, id, label, inputValue, ...props }) => {
       value={inputValue}
       control={<Radio id={id} color={props.color} />}
       {...props}
+      color="default"
       checked={field.value === inputValue}
     />
   );
@@ -20,7 +21,12 @@ FormikRadio.propTypes = {
   form: PropTypes.object.isRequired,
   inputValue: PropTypes.string.isRequired,
   id: PropTypes.string,
-  label: PropTypes.string
+  label: PropTypes.string,
+  color: PropTypes.oneOf(["primary", "secondary", "default"])
+};
+
+FormikRadio.defaultProps = {
+  color: "primary"
 };
 
 export default FormikRadio;
