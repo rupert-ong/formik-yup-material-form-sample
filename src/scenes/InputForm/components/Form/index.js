@@ -7,6 +7,7 @@ import FormikRadioGroup from "../../../../components/FormikRadioGroup";
 import FormikFieldRadio from "../../../../components/FormikFieldRadio";
 import FormikFieldCheckbox from "../../../../components/FormikFieldCheckbox";
 import FormikCheckboxGroup from "../../../../components/FormikCheckboxGroup";
+import FormikFieldSelect from "../../../../components/FormikFieldSelect";
 
 const Form = ({
   values,
@@ -18,6 +19,13 @@ const Form = ({
   setFieldTouched,
   ...props
 }) => {
+  // TODO: Extract this into a Context Provider
+  const ageOptions = [
+    { id: 10, value: "Ten" },
+    { id: 20, value: "Twenty" },
+    { id: 30, value: "Thirty" }
+  ];
+
   return (
     <FormikForm style={{ width: "100%" }}>
       <Grid container spacing={24}>
@@ -142,6 +150,20 @@ const Form = ({
               style={{ marginTop: 24 }}
             />
           )}
+        </Grid>
+
+        <Grid item xs={12}>
+          <Field
+            component={FormikFieldSelect}
+            name="age"
+            id="select1"
+            label="Age"
+            helperText="Be honest!"
+            options={ageOptions}
+            optionValueKey="id"
+            optionLabelKey="value"
+            fullWidth
+          />
         </Grid>
 
         <Grid item xs={12}>
