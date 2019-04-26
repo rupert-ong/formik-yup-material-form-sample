@@ -30,6 +30,10 @@ const validationSchema = yup.object().shape({
     .min(2, "You must select at least 2 skills")
     .required(),
   age: yup.number().required("Age is required"),
+  hobbies: yup
+    .array()
+    .of(yup.string())
+    .required("You must select at least 1 hobby"),
   otherSkill: yup.string().when("skills", {
     is: val => val.includes("other-123"), // alternatively: (val) => val == true
     then: yup.string().required("Other skill is required")
@@ -45,6 +49,7 @@ const initialValues = {
   preferredFruit: "",
   skills: [],
   otherSkill: "",
+  hobbies: [],
   gender: "",
   age: 10,
   signUpForNewsletter: false

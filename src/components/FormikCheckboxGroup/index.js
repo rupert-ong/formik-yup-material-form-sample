@@ -1,4 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Field } from "formik";
+import FormikFieldCheckbox from "../FormikFieldCheckbox";
 import {
   FormControl,
   FormGroup,
@@ -13,6 +16,9 @@ const FormikCheckboxGroup = ({
   name,
   label,
   children,
+  options,
+  optionLabelKey,
+  optionValueKey,
   helperText,
   onChange,
   onBlur,
@@ -33,7 +39,7 @@ const FormikCheckboxGroup = ({
 
   const handleBlur = () => {
     // setFieldTouched method prop call
-    onBlur(name, true);
+    onBlur(name, [true]);
   };
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
@@ -46,17 +52,39 @@ const FormikCheckboxGroup = ({
         </FormLabel>
       )}
       <FormGroup {...props}>
-        {React.Children.map(children, child => {
-          return React.cloneElement(child, {
-            field: {
-              name,
-              value: value.includes(child.props.value),
-              onChange: handleChange,
-              onBlur: handleBlur
-            },
-            displayError: false
-          });
-        })}
+        {typeof options !== "undefined"
+          ? options.map(option => {
+              return React.cloneElement(
+                <Field
+                  key={`${name}-${option[optionValueKey]}`}
+                  component={FormikFieldCheckbox}
+                  name={name}
+                  id={`${name}-${option[optionValueKey]}`}
+                  label={option[optionLabelKey]}
+                  value={option[optionValueKey]}
+                  field={{
+                    name,
+                    value: value.includes(option[optionValueKey]),
+                    onChange: handleChange,
+                    onBlur: handleBlur
+                  }}
+                  displayError={false}
+                />
+              );
+            })
+          : typeof children !== "undefined"
+          ? React.Children.map(children, child => {
+              return React.cloneElement(child, {
+                field: {
+                  name,
+                  value: value.includes(child.props.value),
+                  onChange: handleChange,
+                  onBlur: handleBlur
+                },
+                displayError: false
+              });
+            })
+          : ""}
       </FormGroup>
       {(isTouchedAndHasError || helperText) && (
         <FormHelperText error={isTouchedAndHasError}>
@@ -65,6 +93,26 @@ const FormikCheckboxGroup = ({
       )}
     </FormControl>
   );
+};
+
+FormikCheckboxGroup.propTypes = {
+  value: PropTypes.array.isRequired,
+  error: PropTypes.string,
+  touched: PropTypes.array,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  helperText: PropTypes.string,
+  children: PropTypes.node,
+  options: PropTypes.arrayOf(PropTypes.object),
+  optionValueKey: PropTypes.string,
+  optionLabelKey: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired
+};
+
+FormikCheckboxGroup.defaultProps = {
+  optionValueKey: "id",
+  optionLabelKey: "value"
 };
 
 export default FormikCheckboxGroup;

@@ -32,11 +32,11 @@ const Form = ({
     { id: "bananas", value: "Ripe Bananas" }
   ];
 
-  const skillOptions = [
-    { id: "js-123", value: "JavaScript" },
-    { id: "css-123", value: "CSS" },
-    { id: "react-123", value: "React" },
-    { id: "other-123", value: "Other" }
+  const hobbyOptions = [
+    { id: "hockey-123", value: "Hockey" },
+    { id: "bowling-123", value: "Bowling" },
+    { id: "cooking-123", value: "Cooking" },
+    { id: "music-123", value: "Music" }
   ];
 
   return (
@@ -72,7 +72,9 @@ const Form = ({
           />
         </Grid>
       </Grid>
+
       <Divider style={{ marginTop: 32, marginBottom: 32 }} />
+
       <Grid container spacing={32}>
         <Grid item xs={12}>
           <FormikRadioGroup
@@ -134,13 +136,17 @@ const Form = ({
             />
           </FormikRadioGroup>
         </Grid>
+      </Grid>
 
+      <Divider style={{ marginTop: 32, marginBottom: 32 }} />
+
+      <Grid container spacing={32}>
         <Grid item xs={12}>
           <FormikCheckboxGroup
             id="checkboxGroup"
             name="skills"
             label="Skills"
-            helperText="Select at least 2"
+            helperText="This component uses children components"
             value={values.skills}
             error={errors.skills}
             touched={touched.skills}
@@ -176,6 +182,15 @@ const Form = ({
               component={FormikFieldCheckbox}
               name="skills"
               id="skill4"
+              label="React"
+              value="react-123"
+              disabled
+            />
+
+            <Field
+              component={FormikFieldCheckbox}
+              name="skills"
+              id="skill5"
               label="Other"
               value="other-123"
             />
@@ -188,6 +203,22 @@ const Form = ({
               style={{ marginTop: 24 }}
             />
           )}
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormikCheckboxGroup
+            id="checkboxGroup"
+            name="hobbies"
+            label="Hobbies"
+            helperText="This component uses an options array prop"
+            value={values.hobbies}
+            error={errors.hobbies}
+            touched={touched.hobbies}
+            onChange={setFieldValue}
+            onBlur={setFieldTouched}
+            row={true}
+            options={hobbyOptions}
+          />
         </Grid>
 
         <Grid item xs={12}>
