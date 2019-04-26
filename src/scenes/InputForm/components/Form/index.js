@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Divider } from "@material-ui/core";
 import { Form as FormikForm, Field } from "formik";
 import FormikFieldTextField from "../../../../components/FormikFieldTextField";
 import FormikRadioGroup from "../../../../components/FormikRadioGroup";
-import FormikFieldRadio from "../../../../components/FormikFieldRadio";
 import FormikFieldCheckbox from "../../../../components/FormikFieldCheckbox";
 import FormikCheckboxGroup from "../../../../components/FormikCheckboxGroup";
 import FormikFieldSelect from "../../../../components/FormikFieldSelect";
+import FormikFieldRadio from "../../../../components/FormikFieldRadio";
 
 const Form = ({
   values,
@@ -71,40 +71,66 @@ const Form = ({
             type="password"
           />
         </Grid>
-
+      </Grid>
+      <Divider style={{ marginTop: 32, marginBottom: 32 }} />
+      <Grid container spacing={32}>
         <Grid item xs={12}>
           <FormikRadioGroup
             id="radioGroup"
             name="preferredFruit"
             label="Pick One of These Fruits"
-            helperText="Fruits are a healthy source of vitamins and nutrients"
+            helperText="This components is using an options array of objects prop"
             value={values.preferredFruit}
             error={errors.preferredFruit}
             touched={touched.preferredFruit}
+            onChange={setFieldValue}
+            onBlur={setFieldTouched}
+            options={fruitOptions}
+            row={true}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormikRadioGroup
+            id="radioGroup2"
+            name="gender"
+            label="Pick Your Gender"
+            helperText="This component uses children components"
+            value={values.gender}
+            error={errors.gender}
+            touched={touched.gender}
             onChange={setFieldValue}
             onBlur={setFieldTouched}
             row={true}
           >
             <Field
               component={FormikFieldRadio}
-              name="preferredFruit"
-              id="radioOption1"
-              label="Delicious Apples"
-              value="Apples"
+              name="gender"
+              id="gender1"
+              label="Male"
+              value="male-456"
             />
             <Field
               component={FormikFieldRadio}
-              name="preferredFruit"
-              id="radioOption2"
-              label="Ripe Oranges"
-              value="Oranges"
+              name="gender"
+              id="gender2"
+              label="Female"
+              value="female-123"
             />
             <Field
               component={FormikFieldRadio}
-              name="preferredFruit"
-              id="radioOption3"
-              label="Ripe Bananas"
-              value="Bananas"
+              name="gender"
+              id="gender3"
+              label="Binary"
+              value="binary-456"
+            />
+            <Field
+              component={FormikFieldRadio}
+              name="gender"
+              id="gender4"
+              label="Other"
+              value="other-123"
+              disabled
             />
           </FormikRadioGroup>
         </Grid>

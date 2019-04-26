@@ -45,6 +45,7 @@ const initialValues = {
   preferredFruit: "",
   skills: [],
   otherSkill: "",
+  gender: "",
   age: 10,
   signUpForNewsletter: false
 };

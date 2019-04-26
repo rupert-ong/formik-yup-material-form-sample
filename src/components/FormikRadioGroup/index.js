@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Field } from "formik";
+import FormikFieldRadio from "../FormikFieldRadio";
 import {
   RadioGroup,
   FormControl,
@@ -14,6 +16,9 @@ const FormikRadioGroup = ({
   name,
   label,
   children,
+  options,
+  optionLabelKey,
+  optionValueKey,
   helperText,
   onChange,
   onBlur,
@@ -30,7 +35,6 @@ const FormikRadioGroup = ({
   };
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
-
   return (
     <FormControl component="fieldset">
       {label && (
@@ -45,7 +49,22 @@ const FormikRadioGroup = ({
         onBlur={handleBlur}
         {...props}
       >
-        {children}
+        {typeof options !== "undefined"
+          ? options.map(option => {
+              return (
+                <Field
+                  key={`${name}-${option[optionValueKey]}`}
+                  component={FormikFieldRadio}
+                  name={name}
+                  id={`${name}-${option[optionValueKey]}`}
+                  label={option[optionLabelKey]}
+                  value={option[optionValueKey]}
+                />
+              );
+            })
+          : typeof children !== "undefined"
+          ? children
+          : ""}
       </RadioGroup>
       {(isTouchedAndHasError || helperText) && (
         <FormHelperText error={isTouchedAndHasError}>
@@ -64,8 +83,16 @@ FormikRadioGroup.propTypes = {
   label: PropTypes.string,
   helperText: PropTypes.string,
   children: PropTypes.node,
+  options: PropTypes.arrayOf(PropTypes.object),
+  optionValueKey: PropTypes.string,
+  optionLabelKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired
+};
+
+FormikRadioGroup.defaultProps = {
+  optionValueKey: "id",
+  optionLabelKey: "value"
 };
 
 export default FormikRadioGroup;
