@@ -7,7 +7,7 @@ const FormikFieldCheckbox = ({
   form: { errors, touched },
   id,
   label,
-  inputValue,
+  value: propsValue,
   helperText,
   displayError,
   ...props
@@ -24,7 +24,7 @@ const FormikFieldCheckbox = ({
             id={id}
             onChange={onChange}
             onBlur={onBlur}
-            value={String(inputValue) || String(value)}
+            value={String(propsValue) || String(value)}
             color={props.color}
           />
         }
@@ -45,7 +45,7 @@ FormikFieldCheckbox.propTypes = {
   form: PropTypes.object.isRequired,
   id: PropTypes.string,
   label: PropTypes.string,
-  inputValue: PropTypes.string,
+  value: PropTypes.string,
   helperText: PropTypes.string,
   color: PropTypes.oneOf(["primary", "secondary", "default"]),
   displayError: PropTypes.bool

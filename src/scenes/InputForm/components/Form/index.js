@@ -26,6 +26,19 @@ const Form = ({
     { id: 30, value: "Thirty" }
   ];
 
+  const fruitOptions = [
+    { id: "apples", value: "Delicious Apples" },
+    { id: "oranges", value: "Juicy Oranges" },
+    { id: "bananas", value: "Ripe Bananas" }
+  ];
+
+  const skillOptions = [
+    { id: "js-123", value: "JavaScript" },
+    { id: "css-123", value: "CSS" },
+    { id: "react-123", value: "React" },
+    { id: "other-123", value: "Other" }
+  ];
+
   return (
     <FormikForm style={{ width: "100%" }}>
       <Grid container spacing={24}>
@@ -77,22 +90,21 @@ const Form = ({
               name="preferredFruit"
               id="radioOption1"
               label="Delicious Apples"
-              inputValue="Apples"
+              value="Apples"
             />
             <Field
               component={FormikFieldRadio}
               name="preferredFruit"
               id="radioOption2"
               label="Ripe Oranges"
-              inputValue="Oranges"
+              value="Oranges"
             />
             <Field
               component={FormikFieldRadio}
               name="preferredFruit"
               id="radioOption3"
               label="Ripe Bananas"
-              inputValue="Bananas"
-              disabled
+              value="Bananas"
             />
           </FormikRadioGroup>
         </Grid>
@@ -115,7 +127,7 @@ const Form = ({
               name="skills"
               id="skill1"
               label="HTML"
-              inputValue="html-123"
+              value="html-123"
             />
 
             <Field
@@ -123,7 +135,7 @@ const Form = ({
               name="skills"
               id="skill2"
               label="JavaScript"
-              inputValue="js-123"
+              value="js-123"
             />
 
             <Field
@@ -131,7 +143,7 @@ const Form = ({
               name="skills"
               id="skill3"
               label="CSS"
-              inputValue="css-123"
+              value="css-123"
             />
 
             <Field
@@ -139,7 +151,7 @@ const Form = ({
               name="skills"
               id="skill4"
               label="Other"
-              inputValue="other-123"
+              value="other-123"
             />
           </FormikCheckboxGroup>
           {values.skills.includes("other-123") && (

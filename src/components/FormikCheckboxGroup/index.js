@@ -50,7 +50,7 @@ const FormikCheckboxGroup = ({
           return React.cloneElement(child, {
             field: {
               name,
-              value: value.includes(child.props.inputValue),
+              value: value.includes(child.props.value),
               onChange: handleChange,
               onBlur: handleBlur
             },
