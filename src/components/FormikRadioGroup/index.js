@@ -34,6 +34,30 @@ const FormikRadioGroup = ({
     onBlur(name, true);
   };
 
+  const renderedOptions = Array.isArray(options) ? options.map(option => {
+    return (
+      <Field
+        key={`${name}-${option[optionValueKey]}`}
+        component={FormikFieldRadio}
+        name={name}
+        id={`${name}-${option[optionValueKey]}`}
+        label={option[optionLabelKey]}
+        value={option[optionValueKey]}
+      />
+    );
+  }) : typeof options !== "undefined" && Object.keys(options).map(k=> {
+    return (
+      <Field
+        key={`${name}-${k}`}
+        component={FormikFieldRadio}
+        name={name}
+        id={`${name}-${k}`}
+        label={options[k]}
+        value={k}
+      />
+    );
+  });
+
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
   return (
     <FormControl component="fieldset">
@@ -49,22 +73,7 @@ const FormikRadioGroup = ({
         onBlur={handleBlur}
         {...props}
       >
-        {typeof options !== "undefined"
-          ? options.map(option => {
-              return (
-                <Field
-                  key={`${name}-${option[optionValueKey]}`}
-                  component={FormikFieldRadio}
-                  name={name}
-                  id={`${name}-${option[optionValueKey]}`}
-                  label={option[optionLabelKey]}
-                  value={option[optionValueKey]}
-                />
-              );
-            })
-          : typeof children !== "undefined"
-          ? children
-          : ""}
+        {renderedOptions ? renderedOptions : children}
       </RadioGroup>
       {(isTouchedAndHasError || helperText) && (
         <FormHelperText error={isTouchedAndHasError}>
@@ -83,7 +92,7 @@ FormikRadioGroup.propTypes = {
   label: PropTypes.string,
   helperText: PropTypes.string,
   children: PropTypes.node,
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,

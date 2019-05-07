@@ -21,6 +21,7 @@ const FormikFieldSelect = ({ field, form: { touched, errors }, ...props }) => {
     optionEmptyLabel,
     variant,
     readOnly,
+    label,
     ...restProps
   } = props;
 
@@ -35,10 +36,29 @@ const FormikFieldSelect = ({ field, form: { touched, errors }, ...props }) => {
     setLabelWidth(ReactDOM.findDOMNode(inputLabelRef.current).offsetWidth);
   }, []);
 
+  const renderedOptions = Array.isArray(options) ? options.map(option => {
+    return (
+      <MenuItem
+        key={`${field.name}-${option[optionValueKey]}`}
+        value={option[optionValueKey]}
+      >
+        {option[optionLabelKey]}
+      </MenuItem>
+    );
+  }) : Object.keys(options).map(k=> {
+    return (
+    <MenuItem
+      key={`${field.name}-${k}`}
+      value={k}
+    >
+      {options[k]}
+    </MenuItem>);
+  });
+
   return (
     <FormControl variant={variant} {...restProps}>
       <InputLabel ref={inputLabelRef} htmlFor={id}>
-        Age
+        {label}
       </InputLabel>
       <Select
         input={
@@ -52,16 +72,7 @@ const FormikFieldSelect = ({ field, form: { touched, errors }, ...props }) => {
         readOnly={readOnly}
       >
         <MenuItem value="">{optionEmptyLabel}</MenuItem>
-        {options.map(option => {
-          return (
-            <MenuItem
-              key={`${field.name}-${option[optionValueKey]}`}
-              value={option[optionValueKey]}
-            >
-              {option[optionLabelKey]}
-            </MenuItem>
-          );
-        })}
+        {renderedOptions}
       </Select>
       {(isTouchedAndHasError || helperText) && (
         <FormHelperText error={isTouchedAndHasError}>
@@ -81,7 +92,8 @@ FormikFieldSelect.propTypes = {
   form: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   helperText: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.string,
+  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   optionEmptyLabel: PropTypes.string,

@@ -42,6 +42,44 @@ const FormikCheckboxGroup = ({
     onBlur(name, [true]);
   };
 
+  const renderedOptions = Array.isArray(options) ? options.map(option => {
+      return React.cloneElement(
+        <Field
+          key={`${name}-${option[optionValueKey]}`}
+          component={FormikFieldCheckbox}
+          name={name}
+          id={`${name}-${option[optionValueKey]}`}
+          label={option[optionLabelKey]}
+          value={option[optionValueKey]}
+          field={{
+            name,
+            value: value.includes(option[optionValueKey]),
+            onChange: handleChange,
+            onBlur: handleBlur
+          }}
+          displayError={false}
+        />
+      );
+  }) : typeof options !== "undefined" && Object.keys(options).map(k=> {
+    return React.cloneElement(
+        <Field
+          key={`${name}-${k}`}
+          component={FormikFieldCheckbox}
+          name={name}
+          id={`${name}-${k}`}
+          label={options[k]}
+          value={k}
+          field={{
+            name,
+            value: value.includes(k),
+            onChange: handleChange,
+            onBlur: handleBlur
+          }}
+          displayError={false}
+        />
+      );
+  });
+
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
 
   return (
@@ -52,26 +90,7 @@ const FormikCheckboxGroup = ({
         </FormLabel>
       )}
       <FormGroup {...props}>
-        {typeof options !== "undefined"
-          ? options.map(option => {
-              return React.cloneElement(
-                <Field
-                  key={`${name}-${option[optionValueKey]}`}
-                  component={FormikFieldCheckbox}
-                  name={name}
-                  id={`${name}-${option[optionValueKey]}`}
-                  label={option[optionLabelKey]}
-                  value={option[optionValueKey]}
-                  field={{
-                    name,
-                    value: value.includes(option[optionValueKey]),
-                    onChange: handleChange,
-                    onBlur: handleBlur
-                  }}
-                  displayError={false}
-                />
-              );
-            })
+        {renderedOptions ? renderedOptions 
           : typeof children !== "undefined"
           ? React.Children.map(children, child => {
               return React.cloneElement(child, {
@@ -103,7 +122,7 @@ FormikCheckboxGroup.propTypes = {
   label: PropTypes.string,
   helperText: PropTypes.string,
   children: PropTypes.node,
-  options: PropTypes.arrayOf(PropTypes.object),
+  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,

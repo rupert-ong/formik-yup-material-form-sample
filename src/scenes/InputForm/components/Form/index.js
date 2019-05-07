@@ -26,11 +26,23 @@ const Form = ({
     { id: 30, value: "Thirty" }
   ];
 
+  const ageOptionsObj = {
+    "10": "Ten",
+    "20": "Twenty",
+    "30" : "Thirty" 
+  };
+
   const fruitOptions = [
     { id: "apples", value: "Delicious Apples" },
     { id: "oranges", value: "Juicy Oranges" },
     { id: "bananas", value: "Ripe Bananas" }
   ];
+
+  const fruitOptionsObj = {
+    "apples": "Delicious Apples",
+    "oranges": "Juicy Oranges",
+    "bananas" : "Ripe Bananas" 
+  };
 
   const hobbyOptions = [
     { id: "hockey-123", value: "Hockey" },
@@ -38,6 +50,13 @@ const Form = ({
     { id: "cooking-123", value: "Cooking" },
     { id: "music-123", value: "Music" }
   ];
+
+  const hobbyOptionsObj = {
+    "hockey-123": "Hockey", 
+    "bowling-123": "Bowling", 
+    "cooking-123": "Cooking", 
+    "music-123": "Music"
+};
 
   return (
     <FormikForm style={{ width: "100%" }}>
@@ -87,7 +106,7 @@ const Form = ({
             touched={touched.preferredFruit}
             onChange={setFieldValue}
             onBlur={setFieldTouched}
-            options={fruitOptions}
+            options={fruitOptionsObj}
             row={true}
           />
         </Grid>
@@ -217,7 +236,7 @@ const Form = ({
             onChange={setFieldValue}
             onBlur={setFieldTouched}
             row={true}
-            options={hobbyOptions}
+            options={hobbyOptionsObj}
           />
         </Grid>
 
@@ -228,7 +247,7 @@ const Form = ({
             id="select1"
             label="Age"
             helperText="Be honest!"
-            options={ageOptions}
+            options={ageOptionsObj}
             optionValueKey="id"
             optionLabelKey="value"
             fullWidth
