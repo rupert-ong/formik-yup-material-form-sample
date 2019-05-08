@@ -36,24 +36,25 @@ const FormikFieldSelect = ({ field, form: { touched, errors }, ...props }) => {
     setLabelWidth(ReactDOM.findDOMNode(inputLabelRef.current).offsetWidth);
   }, []);
 
-  const renderedOptions = Array.isArray(options) ? options.map(option => {
+  const generateMenuItem = (fieldName, value, label) => {
     return (
-      <MenuItem
-        key={`${field.name}-${option[optionValueKey]}`}
-        value={option[optionValueKey]}
-      >
-        {option[optionLabelKey]}
+      <MenuItem key={`${fieldName}-${value}`} value={value}>
+        {label}
       </MenuItem>
     );
-  }) : Object.keys(options).map(k=> {
-    return (
-    <MenuItem
-      key={`${field.name}-${k}`}
-      value={k}
-    >
-      {options[k]}
-    </MenuItem>);
-  });
+  };
+
+  const renderedOptions = Array.isArray(options)
+    ? options.map(option =>
+        generateMenuItem(
+          field.name,
+          option[optionValueKey],
+          option[optionLabelKey]
+        )
+      )
+    : Object.keys(options).map(k =>
+        generateMenuItem(field.name, k, options[k])
+      );
 
   return (
     <FormControl variant={variant} {...restProps}>
@@ -93,7 +94,10 @@ FormikFieldSelect.propTypes = {
   id: PropTypes.string.isRequired,
   helperText: PropTypes.string,
   label: PropTypes.string,
-  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.shape()
+  ]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   optionEmptyLabel: PropTypes.string,

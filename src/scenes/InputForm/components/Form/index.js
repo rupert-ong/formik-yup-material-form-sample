@@ -29,7 +29,7 @@ const Form = ({
   const ageOptionsObj = {
     "10": "Ten",
     "20": "Twenty",
-    "30" : "Thirty" 
+    "30": "Thirty"
   };
 
   const fruitOptions = [
@@ -39,9 +39,9 @@ const Form = ({
   ];
 
   const fruitOptionsObj = {
-    "apples": "Delicious Apples",
-    "oranges": "Juicy Oranges",
-    "bananas" : "Ripe Bananas" 
+    apples: "Delicious Apples",
+    oranges: "Juicy Oranges",
+    bananas: "Ripe Bananas"
   };
 
   const hobbyOptions = [
@@ -52,11 +52,11 @@ const Form = ({
   ];
 
   const hobbyOptionsObj = {
-    "hockey-123": "Hockey", 
-    "bowling-123": "Bowling", 
-    "cooking-123": "Cooking", 
+    "hockey-123": "Hockey",
+    "bowling-123": "Bowling",
+    "cooking-123": "Cooking",
     "music-123": "Music"
-};
+  };
 
   return (
     <FormikForm style={{ width: "100%" }}>

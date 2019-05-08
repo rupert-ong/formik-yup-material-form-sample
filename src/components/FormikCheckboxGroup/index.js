@@ -42,43 +42,39 @@ const FormikCheckboxGroup = ({
     onBlur(name, [true]);
   };
 
-  const renderedOptions = Array.isArray(options) ? options.map(option => {
-      return React.cloneElement(
-        <Field
-          key={`${name}-${option[optionValueKey]}`}
-          component={FormikFieldCheckbox}
-          name={name}
-          id={`${name}-${option[optionValueKey]}`}
-          label={option[optionLabelKey]}
-          value={option[optionValueKey]}
-          field={{
-            name,
-            value: value.includes(option[optionValueKey]),
-            onChange: handleChange,
-            onBlur: handleBlur
-          }}
-          displayError={false}
-        />
+  const generateCheckboxField = (name, value, checkboxValue, checkboxLabel) => {
+    return (
+      <Field
+        key={`${name}-${checkboxValue}`}
+        component={FormikFieldCheckbox}
+        name={name}
+        id={`${name}-${checkboxValue}`}
+        label={checkboxLabel}
+        value={checkboxValue}
+        field={{
+          name,
+          value: value.includes(checkboxValue),
+          onChange: handleChange,
+          onBlur: handleBlur
+        }}
+        displayError={false}
+      />
+    );
+  };
+
+  const renderedOptions = Array.isArray(options)
+    ? options.map(option =>
+        generateCheckboxField(
+          name,
+          value,
+          option[optionValueKey],
+          option[optionLabelKey]
+        )
+      )
+    : typeof options !== "undefined" &&
+      Object.keys(options).map(k =>
+        generateCheckboxField(name, value, k, options[k])
       );
-  }) : typeof options !== "undefined" && Object.keys(options).map(k=> {
-    return React.cloneElement(
-        <Field
-          key={`${name}-${k}`}
-          component={FormikFieldCheckbox}
-          name={name}
-          id={`${name}-${k}`}
-          label={options[k]}
-          value={k}
-          field={{
-            name,
-            value: value.includes(k),
-            onChange: handleChange,
-            onBlur: handleBlur
-          }}
-          displayError={false}
-        />
-      );
-  });
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
 
@@ -90,7 +86,8 @@ const FormikCheckboxGroup = ({
         </FormLabel>
       )}
       <FormGroup {...props}>
-        {renderedOptions ? renderedOptions 
+        {renderedOptions
+          ? renderedOptions
           : typeof children !== "undefined"
           ? React.Children.map(children, child => {
               return React.cloneElement(child, {
@@ -122,7 +119,10 @@ FormikCheckboxGroup.propTypes = {
   label: PropTypes.string,
   helperText: PropTypes.string,
   children: PropTypes.node,
-  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.shape()
+  ]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,

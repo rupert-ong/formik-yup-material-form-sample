@@ -34,29 +34,25 @@ const FormikRadioGroup = ({
     onBlur(name, true);
   };
 
-  const renderedOptions = Array.isArray(options) ? options.map(option => {
+  const generateRadioField = (name, radioValue, radioLabel) => {
     return (
       <Field
-        key={`${name}-${option[optionValueKey]}`}
+        key={`${name}-${radioValue}`}
         component={FormikFieldRadio}
         name={name}
-        id={`${name}-${option[optionValueKey]}`}
-        label={option[optionLabelKey]}
-        value={option[optionValueKey]}
+        id={`${name}-${radioValue}`}
+        label={radioLabel}
+        value={radioValue}
       />
     );
-  }) : typeof options !== "undefined" && Object.keys(options).map(k=> {
-    return (
-      <Field
-        key={`${name}-${k}`}
-        component={FormikFieldRadio}
-        name={name}
-        id={`${name}-${k}`}
-        label={options[k]}
-        value={k}
-      />
-    );
-  });
+  };
+
+  const renderedOptions = Array.isArray(options)
+    ? options.map(option =>
+        generateRadioField(name, option[optionValueKey], option[optionLabelKey])
+      )
+    : typeof options !== "undefined" &&
+      Object.keys(options).map(k => generateRadioField(name, k, options[k]));
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
   return (
@@ -92,7 +88,10 @@ FormikRadioGroup.propTypes = {
   label: PropTypes.string,
   helperText: PropTypes.string,
   children: PropTypes.node,
-  options: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.shape()]),
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.shape()
+  ]),
   optionValueKey: PropTypes.string,
   optionLabelKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,
