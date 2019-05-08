@@ -10,6 +10,7 @@ const FormikFieldCheckbox = ({
   value: propsValue,
   helperText,
   displayError,
+  color,
   ...props
 }) => {
   const isTouchedAndHasError =
@@ -25,16 +26,14 @@ const FormikFieldCheckbox = ({
             onChange={onChange}
             onBlur={onBlur}
             value={String(propsValue) || String(value)}
-            color={props.color}
+            color={color}
           />
         }
         {...props}
         checked={Boolean(value)}
       />
       {(isTouchedAndHasError || helperText) && (
-        <FormHelperText error={isTouchedAndHasError}>
-          {isTouchedAndHasError ? errors[name] : helperText ? helperText : ""}
-        </FormHelperText>
+        <FormHelperText error={isTouchedAndHasError}>{isTouchedAndHasError ? errors[name] : helperText || ""}</FormHelperText>
       )}
     </>
   );

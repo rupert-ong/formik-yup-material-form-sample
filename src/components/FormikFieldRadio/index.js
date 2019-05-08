@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FormControlLabel, Radio } from "@material-ui/core";
 
-const FormikFieldRadio = ({ field, form, id, label, value, ...props }) => {
+const FormikFieldRadio = ({ field, form, id, label, value, color, ...props }) => {
   return (
     <FormControlLabel
       name={field.name}
       label={label}
       value={value}
-      control={<Radio id={id} color={props.color} />}
+      control={<Radio id={id} color={color} />}
       color="default"
       {...props}
     />

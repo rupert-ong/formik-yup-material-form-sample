@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 const FormikFieldTextField = ({
   field,
   form: { touched, errors },
+  helperText,
   ...props
 }) => {
   return (
@@ -18,9 +19,7 @@ const FormikFieldTextField = ({
       helperText={
         touched[field.name] && Boolean(errors[field.name])
           ? errors[field.name]
-          : props.helperText
-          ? props.helperText
-          : ""
+          : helperText || ""
       }
     />
   );
@@ -28,7 +27,8 @@ const FormikFieldTextField = ({
 
 FormikFieldTextField.propTypes = {
   field: PropTypes.object.isRequired,
-  form: PropTypes.object.isRequired
+  form: PropTypes.object.isRequired,
+  helperText: PropTypes.string,
 };
 
 export default FormikFieldTextField;
