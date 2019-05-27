@@ -34,7 +34,7 @@ const FormikRadioGroup = ({
     onBlur(name, true);
   };
 
-  const generateRadioField = (name, radioValue, radioLabel) => {
+  const generateRadioField = (radioValue, radioLabel) => {
     return (
       <Field
         key={`${name}-${radioValue}`}
@@ -49,10 +49,10 @@ const FormikRadioGroup = ({
 
   const renderedOptions = Array.isArray(options)
     ? options.map(option =>
-        generateRadioField(name, option[optionValueKey], option[optionLabelKey])
+        generateRadioField(option[optionValueKey], option[optionLabelKey])
       )
     : typeof options !== "undefined" &&
-      Object.keys(options).map(k => generateRadioField(name, k, options[k]));
+      Object.keys(options).map(k => generateRadioField(k, options[k]));
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
   return (

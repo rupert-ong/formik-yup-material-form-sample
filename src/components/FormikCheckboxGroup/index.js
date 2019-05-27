@@ -42,7 +42,7 @@ const FormikCheckboxGroup = ({
     onBlur(name, [true]);
   };
 
-  const generateCheckboxField = (name, value, checkboxValue, checkboxLabel) => {
+  const generateCheckboxField = (checkboxValue, checkboxLabel) => {
     return (
       <Field
         key={`${name}-${checkboxValue}`}
@@ -65,15 +65,13 @@ const FormikCheckboxGroup = ({
   const renderedOptions = Array.isArray(options)
     ? options.map(option =>
         generateCheckboxField(
-          name,
-          value,
           option[optionValueKey],
           option[optionLabelKey]
         )
       )
     : typeof options !== "undefined" &&
       Object.keys(options).map(k =>
-        generateCheckboxField(name, value, k, options[k])
+        generateCheckboxField(k, options[k])
       );
 
   const isTouchedAndHasError = Boolean(touched) && Boolean(error);
