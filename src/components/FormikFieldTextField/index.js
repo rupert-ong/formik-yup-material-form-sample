@@ -1,34 +1,80 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import { FormHelperText, TextField } from "@material-ui/core";
 
-import TextField from "@material-ui/core/TextField";
+import useStyles from "./styles";
 
 const FormikFieldTextField = ({
   field,
   form: { touched, errors },
+  variant,
   helperText,
+  readOnly,
+  maxLength,
   ...props
 }) => {
+  const [chrCount, setChrCount] = React.useState(0);
+  const classes = useStyles();
+  const helperLineClass = classNames({
+    [classes.helperLine]: true,
+    [classes.helperLineOutlinedOrFilled]: variant !== "standard"
+  });
+
+  /* const handleChange = e => {
+    if (maxLength) {
+      setChrCount(String(e.currentTarget.value).length);
+    }
+    field.onChange(e);
+  }; */
+
+  const handleKeyUp = e => {
+    setChrCount(String(e.target.value).length);
+  };
+
+  const hasError = touched[field.name] && Boolean(errors[field.name]);
+
   return (
-    <TextField
-      error={touched[field.name] && Boolean(errors[field.name])}
-      variant="outlined"
-      fullWidth
-      {...field}
-      {...props}
-      helperText={
-        touched[field.name] && Boolean(errors[field.name])
-          ? errors[field.name]
-          : helperText || ""
-      }
-    />
+    <div>
+      <TextField
+        error={hasError}
+        variant={variant}
+        fullWidth
+        InputProps={{
+          readOnly
+        }}
+        inputProps={{
+          maxLength
+        }}
+        onKeyUp={maxLength ? handleKeyUp : null}
+        {...field}
+        {...props}
+      />
+      <div className={helperLineClass}>
+        <FormHelperText error={hasError}>
+          {hasError ? errors[field.name] : helperText || ""}
+        </FormHelperText>
+        <FormHelperText className={classes.characterCount}>
+          {maxLength && `${chrCount}/${maxLength}`}
+        </FormHelperText>
+      </div>
+    </div>
   );
 };
 
 FormikFieldTextField.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
+  variant: PropTypes.oneOf(["standard", "outlined", "filled"]),
   helperText: PropTypes.string,
+  readOnly: PropTypes.bool,
+  maxLength: PropTypes.number
+};
+FormikFieldTextField.defaultProps = {
+  variant: "outlined",
+  readOnly: false,
+  maxLength: null
 };
 
 export default FormikFieldTextField;

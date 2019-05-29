@@ -19,7 +19,7 @@ const Form = ({
   setFieldTouched,
   ...props
 }) => {
-  // TODO: Extract this into a Context Provider
+  // eslint-disable-next-line no-unused-vars
   const ageOptions = [
     { id: 10, value: "Ten" },
     { id: 20, value: "Twenty" },
@@ -32,6 +32,7 @@ const Form = ({
     "30": "Thirty"
   };
 
+  // eslint-disable-next-line no-unused-vars
   const fruitOptions = [
     { id: "apples", value: "Delicious Apples" },
     { id: "oranges", value: "Juicy Oranges" },
@@ -44,6 +45,7 @@ const Form = ({
     bananas: "Ripe Bananas"
   };
 
+  // eslint-disable-next-line no-unused-vars
   const hobbyOptions = [
     { id: "hockey-123", value: "Hockey" },
     { id: "bowling-123", value: "Bowling" },
@@ -60,13 +62,14 @@ const Form = ({
 
   return (
     <FormikForm style={{ width: "100%" }}>
-      <Grid container spacing={24}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Field
             name="name"
             helperText="Enter your full name"
             label="Name"
             component={FormikFieldTextField}
+            maxLength={50}
           />
         </Grid>
 
@@ -92,9 +95,9 @@ const Form = ({
         </Grid>
       </Grid>
 
-      <Divider style={{ marginTop: 32, marginBottom: 32 }} />
+      <Divider style={{ marginTop: 24, marginBottom: 24 }} />
 
-      <Grid container spacing={32}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <FormikRadioGroup
             id="radioGroup"
@@ -157,9 +160,9 @@ const Form = ({
         </Grid>
       </Grid>
 
-      <Divider style={{ marginTop: 32, marginBottom: 32 }} />
+      <Divider style={{ marginTop: 24, marginBottom: 24 }} />
 
-      <Grid container spacing={32}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <FormikCheckboxGroup
             id="checkboxGroup"
