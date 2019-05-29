@@ -34,7 +34,7 @@ const FormikFieldSelect = ({ field, form: { touched, errors }, ...props }) => {
 
   useEffect(() => {
     setLabelWidth(ReactDOM.findDOMNode(inputLabelRef.current).offsetWidth);
-  }, []);
+  }, [inputLabelRef]);
 
   const generateMenuItem = (fieldName, value, label) => {
     return (
