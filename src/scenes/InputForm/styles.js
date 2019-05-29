@@ -1,16 +1,17 @@
-const styles = theme => ({
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 5}px ${theme
-      .spacing.unit * 5}px ${theme.spacing.unit * 5}px`
+    padding: theme.spacing(5)
   },
   container: {
     maxWidth: "600px",
     margin: "0 auto"
   }
-});
+}));
 
-export default styles;
+export default useStyles;
