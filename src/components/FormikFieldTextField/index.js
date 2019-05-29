@@ -22,13 +22,6 @@ const FormikFieldTextField = ({
     [classes.helperLineOutlinedOrFilled]: variant !== "standard"
   });
 
-  /* const handleChange = e => {
-    if (maxLength) {
-      setChrCount(String(e.currentTarget.value).length);
-    }
-    field.onChange(e);
-  }; */
-
   const handleKeyUp = e => {
     setChrCount(String(e.target.value).length);
   };
